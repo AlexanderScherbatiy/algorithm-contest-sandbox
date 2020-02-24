@@ -4,11 +4,12 @@ import algorithm.contest.ContestAction;
 
 /**
  * Data structures for Tic-tac-toe game
- * Actions:
- * - New Game (map)
- * - First Turn (map)
- * - Next Turn (Move(map, row, column), map)
+ * Input action -> output action:
+ * - New Game (map) -> Idle
+ * - First Turn (map) -> MoveAction(Move(mark, row, column)
+ * - Next Turn (Move(mark, row, column), map)
  * - Win/Loss
+ * - Idle
  */
 public class TicTacToeGame {
 
@@ -71,16 +72,31 @@ public class TicTacToeGame {
     }
 
     public static class NextTurn implements ContestAction {
-        private final Map map;
         private final Move move;
+        private final Map map;
 
-        public NextTurn(Map map, Move move) {
-            this.map = map;
+        public NextTurn(Move move, Map map) {
             this.move = move;
+            this.map = map;
+        }
+
+        public Move getMove() {
+            return move;
         }
 
         public Map getMap() {
             return map;
+        }
+    }
+
+    public static class Idle implements ContestAction {
+    }
+
+    public static class MoveAction implements ContestAction {
+        private final Move move;
+
+        public MoveAction(Move move) {
+            this.move = move;
         }
 
         public Move getMove() {
@@ -92,5 +108,11 @@ public class TicTacToeGame {
     }
 
     public static class Loss implements ContestAction {
+    }
+
+    public static class TicTacToeException extends Exception {
+        public TicTacToeException(String format, Object... args) {
+            super(String.format(format, args));
+        }
     }
 }

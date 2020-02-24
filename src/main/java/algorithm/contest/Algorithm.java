@@ -2,5 +2,5 @@ package algorithm.contest;
 
 public interface Algorithm {
 
-	ContestAction nextAction(ContestAction action);
+    ContestAction nextAction(ContestAction action) throws Exception;
 }
